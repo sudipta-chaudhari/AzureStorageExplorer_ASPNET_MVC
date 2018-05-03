@@ -1,4 +1,4 @@
-﻿@{
+@{
     ViewBag.Title = "Document";
     Layout = "";
 }
@@ -6,13 +6,5 @@
 @Scripts.Render("~/bundles/jquery")
   
 <div>
-    @*<iframe width="600" height="800" frameborder="0" src="http://docs.google.com/gview?url=https%3A%2F%2Fazuredocstoragetest.blob.core.windows.net%2Fazuredocservicecontainertest%2FInspect%2520of%2520Parker%2520yaw%2520brake%2520hydraulics_6583F4EF-D000-4CDC-82D8-F3ED92DB2D30.pdf%3Fst%3D2017-04-08T00%253A01%253A00Z%26se%3D2099-12-31T23%253A59%253A00Z%26sp%3Drwdl%26sv%3D2015-12-11%26sr%3Dc%26sig%3DnPeI%252Bd6p7L0VT8v0zY66fCfoGsKg2gUpLQVT1WbZs3U%253D%20&embedded=true"></iframe>*@
-    @*<embed src="https://azuredocstoragetest.blob.core.windows.net/azuredocservicecontainertest/Brembo%20active%20disc%20brake.pdf?st=2017-04-08T00%3A01%3A00Z&se=2099-12-31T23%3A59%3A00Z&sp=rwdl&sv=2015-12-11&sr=c&sig=nPeI%2Bd6p7L0VT8v0zY66fCfoGsKg2gUpLQVT1WbZs3U%3D" content-type="application/pdf" width="500" height="500" />*@
-    
-    @*<embed src="https://azuredocstoragetest.blob.core.windows.net/azuredocservicecontainertest/@Html.Raw(ViewBag.FileName)?st=2017-04-08T00%3A01%3A00Z&se=2099-12-31T23%3A59%3A00Z&sp=rwdl&sv=2015-12-11&sr=c&sig=nPeI%2Bd6p7L0VT8v0zY66fCfoGsKg2gUpLQVT1WbZs3U%3D" content-type="application/pdf" width="500" height="500" />*@
-
-    @*<iframe width="500" height="500" frameborder="0" src="https://azuredocstoragetest.blob.core.windows.net/azuredocservicecontainertest/@Html.Raw(ViewBag.FileName)?st=2017-04-08T00%3A01%3A00Z&se=2099-12-31T23%3A59%3A00Z&sp=rwdl&sv=2015-12-11&sr=c&sig=nPeI%2Bd6p7L0VT8v0zY66fCfoGsKg2gUpLQVT1WbZs3U%3D"></iframe>*@
-
-    <iframe width="500" height="500" frameborder="0" src="https://azuredocstoragedev.blob.core.windows.net/azuredoccontainer/@Html.Raw(ViewBag.FileName)?sv=2015-04-05&sr=c&sig=ZyZDST02z4328jPH%2FE6aSYVhj9db4yeMjHqgTpWz1Xw%3D&se=2018-05-03T16%3A11%3A24Z&sp=rwdl"></iframe>
-
+    <iframe width="500" height="500" frameborder="0" src="https://storageaccountname.blob.core.windows.net/storagecontainername/@Html.Raw(ViewBag.FileName)?containersastoken"></iframe>
 </div>
