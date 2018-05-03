@@ -1,0 +1,24 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div style="padding-top: 10px"></div>
+
+<div class="well well-lg" style="padding-top:10px">
+    <h2>Upload File(s)</h2>
+</div>
+
+<div>
+    @using (Html.BeginForm("UploadFiles", "Upload", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <span>Select File:</span>
+        <input type="file" name="postedFiles" multiple="multiple" accept=".pdf" />
+        <hr />
+        <button class="btn btn-info">
+            <span class="glyphicon glyphicon-cloud-upload"></span>&nbsp;Upload
+        </button>
+        <br />
+        <span style="color:green">@Html.Raw(ViewBag.Message)</span>
+    }
+</div>

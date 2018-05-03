@@ -1,0 +1,74 @@
+﻿@model IEnumerable<AzureStorageWebExplorer.Models.AzureBlob>
+@using GridMvc.Html;
+@using AzureStorageWebExplorer.App_Start;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div style="padding-top: 10px"></div>
+
+<div class="well well-lg" style="padding-top:10px">
+    <h2>Explore Uploaded Files</h2>
+</div>
+
+<div>
+    @Html.Grid(Model).Columns(columns =>
+    {
+        columns.Add(c => c.Name).Titled("File Name").Filterable(true).Sortable(true);
+
+        columns.Add(c => c.LastModified).Titled("Last Modified").Sortable(true);
+
+        columns.Add(c => c.SizeString).Titled("File Size").Sortable(false);
+
+        columns.Add().Encoded(false).Sanitized(false).SetWidth(50).RenderValueAs(o => Html.NoEncodeActionLink("<span class='glyphicon glyphicon-trash'></span>",
+                "Delete File", "Delete", "Explore", new { @fileName = o.Name },
+                new { @class = "btn btn-sm btn-danger", onclick = "return confirm('Are you sure you wish to delete this File?');" }));
+
+        columns.Add().Encoded(false).Sanitized(false).SetWidth(50).RenderValueAs(o => @<button class="btn btn-default" data-value="@o.Name"
+                onclick="location.href='@Url.Action("ShowPDF", "Explore", new { fileName = o.Name })'">
+                <span class="glyphicon glyphicon-cloud-download"></span>
+            </button>);
+
+            columns.Add().Encoded(false).Sanitized(false).SetWidth(50).RenderValueAs(o => @<button class="btn btn-info" data-value="@o.Name">
+                <span class="glyphicon glyphicon-fullscreen"></span>
+            </button>);
+   }).WithPaging(7)
+
+</div>
+
+@section Scripts{
+
+@Scripts.Render("~/Scripts/jquery-1.12.4.js");
+@Scripts.Render("~/Scripts/jquery-ui-1.12.1.js");
+
+<script type="text/javascript">
+
+    function PopupCenter(url, title, w, h) {
+        // Fixes dual-screen position                         Most browsers      Firefox
+        var dualScreenLeft = window.screenLeft != undefined ? window.screenLeft : screen.left;
+        var dualScreenTop = window.screenTop != undefined ? window.screenTop : screen.top;
+
+        var width = window.innerWidth ? window.innerWidth : document.documentElement.clientWidth ? document.documentElement.clientWidth : screen.width;
+        var height = window.innerHeight ? window.innerHeight : document.documentElement.clientHeight ? document.documentElement.clientHeight : screen.height;
+
+        var left = ((width / 2) - (w / 2)) + dualScreenLeft;
+        var top = ((height / 2) - (h / 2)) + dualScreenTop;
+        var newWindow = window.open(url, title, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
+
+        // Puts focus on the newWindow
+        if (window.focus) {
+            newWindow.focus();
+        }
+    }
+
+    $(document).ready(function () {
+        $(".btn.btn-info").click(function () {         
+            var fName = encodeURIComponent($(this).attr('data-value'));
+            PopupCenter('/Document/Index/?fn=' + fName,'View PDF', 550,550);
+        });
+    });
+</script>
+
+}

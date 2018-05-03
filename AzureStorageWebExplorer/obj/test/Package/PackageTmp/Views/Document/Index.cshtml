@@ -1,0 +1,55 @@
+﻿@model XodViewerWeb.DataModel.Document
+
+@{
+    ViewBag.Title = "Document";
+}
+
+@Scripts.Render("~/bundles/jquery")
+<script src="~/lib/WebViewer.min.js"></script>
+
+<style>
+    #viewer {
+        width: 1024px;
+        height: 600px;
+    }
+</style>
+
+<script>
+    $(function () {
+            var docName = '@Html.Raw(Model.DocumentName)';
+            var docGUID = '@Html.Raw(Model.DocGUID)';
+            var docNameWithGUID = docName.slice(0, -4) + "_" + docGUID.toUpperCase() + ".xod";
+            var storageAccount = '@ViewBag.StorageAccount';
+            var storageContainer = '@ViewBag.StorageContainer';
+            var storageSAS = '@Html.Raw(@ViewBag.StorageSAS)';
+            //var initialDocValue = "https://" + storageAccount + ".blob.core.windows.net/" + storageContainer + "/" + encodeURI(docNameWithGUID);
+            //var initialDocValue = "https://azuredocstoragetest.blob.core.windows.net/azuredocservicecontainertest/" + encodeURI(docName) +
+            //"?st=2017-04-08T18%3A31%3A00Z&se=2099-12-31T18%3A29%3A00Z&sp=rwdl&sv=2015-12-11&sr=c&sig=yKeKj6oiq1v%2BxysX6bh7DsydybtgrfrsjRudPkPiCME%3D";
+            var initialDocValue = "https://" + storageAccount + ".blob.core.windows.net/" + storageContainer + "/" + encodeURI(docName) + storageSAS;
+            //alert(initialDocValue);
+             //var initialDocValue = '@Html.Raw(@ViewBag.File)';
+        
+            var viewerElement = document.getElementById('viewer');
+            var myWebViewer = new PDFTron.WebViewer({
+                path: 'lib',
+                type: 'html5',
+                documentType: "xod",
+                //initialDoc: "DownloadedXODFiles/" + docName,
+                //initialDoc: "https://azuredocstoragetest.blob.core.windows.net/azuredocservicecontainertest/Secure%20lock%20for%20HSS%20bearing%20outer%20race_1C4B4EF9-B898-44D1-91DB-E4EA44BF5ACE.xod",
+                //initialDoc:"https://azuredocstoragetest.blob.core.windows.net/azuredocservicecontainertest/Secure%20Hansen%20803-A%20&%20803%20C%20HSS%20bearing_F8DAE564-3DE5-43C6-962B-2A47B93C59CC.xod?sr=c&si=twominutepolicy&sig=i%2BYj8Z%2FfCZubu1Q9226QtPeUB%2FnpnozPiF8y7nDj8O8%3D&restype=container",
+                initialDoc: initialDocValue,
+                config: '../../lib/WebViewerConfig.js',
+                streaming: true,
+                enableAnnotations: false,
+                enableOfflineMode: false,
+                enableReadOnlyMode: true
+            }, viewerElement);
+        });
+</script>
+
+@*<h2>Document</h2>*@
+
+@Html.Raw(ViewBag.Message)
+
+<div id="viewer"class="xod-viewer-div">
+</div>

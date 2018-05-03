@@ -1,0 +1,21 @@
+﻿@using System.Security.Claims
+
+@Styles.Render("~/Content/css")
+
+<div class="view-div">
+    @Html.Raw(ViewBag.Message)
+    @*<table class="table-hover claim-table">
+        <tr>
+            <th class="claim-head">Claim Type</th>
+            <th class="claim-head">Claim Value</th>
+        </tr>
+        @foreach (Claim claim in ClaimsPrincipal.Current.Claims)
+        {
+            <tr>
+                <td class="claim-data">@claim.Type</td>
+                <td class="claim-data">@claim.Value</td>
+            </tr>
+        }
+    </table>*@
+</div>
+
